@@ -1,9 +1,6 @@
 <?php
 
-/**
- * Pterodactyl Module
- */
-class Pterodactyl extends Module {
+class GspPanel extends Module {
 
     /**
      * Initializes the module
@@ -13,19 +10,19 @@ class Pterodactyl extends Module {
         Loader::loadComponents($this, ['Input']);
 
         // Load the language required by this module
-        Language::loadLang('pterodactyl', null, dirname(__FILE__) . DS . 'language' . DS);
-        Language::loadLang('pterodactyl_package', null, dirname(__FILE__) . DS . 'language' . DS);
+        Language::loadLang('gsppanel', null, dirname(__FILE__) . DS . 'language' . DS);
+        Language::loadLang('gsppanel_package', null, dirname(__FILE__) . DS . 'language' . DS);
 
         // Load module config
         $this->loadConfig(dirname(__FILE__) . DS . 'config.json');
 
         // Load additional config settings
-        Configure::load('pterodactyl', dirname(__FILE__) . DS . 'config' . DS);
+        Configure::load('gsppanel', dirname(__FILE__) . DS . 'config' . DS);
 
         Loader::loadModels($this, ['Clients']);
         Loader::loadModels($this, ['Session']);
 
-        Loader::load(dirname(__FILE__) . DS . 'apis' . DS . 'pterodactyl_api.php');
+        Loader::load(dirname(__FILE__) . DS . 'apis' . DS . 'gsppanel_api.php');
 
     }
 
@@ -92,7 +89,7 @@ class Pterodactyl extends Module {
         // Load the view into this object, so helpers can be automatically added to the view
         $this->view = new View('manage', 'default');
         $this->view->base_uri = $this->base_uri;
-        $this->view->setDefaultView('components' . DS . 'modules' . DS . 'pterodactyl' . DS);
+        $this->view->setDefaultView('components' . DS . 'modules' . DS . 'gsppanel' . DS);
 
         // Load the helpers required for this view
         Loader::loadHelpers($this, ['Form', 'Html', 'Widget']);
@@ -117,7 +114,7 @@ class Pterodactyl extends Module {
         // Load the view into this object, so helpers can be automatically added to the view
         $this->view = new View('add_row', 'default');
         $this->view->base_uri = $this->base_uri;
-        $this->view->setDefaultView('components' . DS . 'modules' . DS . 'pterodactyl' . DS);
+        $this->view->setDefaultView('components' . DS . 'modules' . DS . 'gsppanel' . DS);
 
         // Load the helpers required for this view
         Loader::loadHelpers($this, ['Form', 'Html', 'Widget']);
@@ -150,7 +147,7 @@ class Pterodactyl extends Module {
         // Load the view into this object, so helpers can be automatically added to the view
         $this->view = new View('edit_row', 'default');
         $this->view->base_uri = $this->base_uri;
-        $this->view->setDefaultView('components' . DS . 'modules' . DS . 'pterodactyl' . DS);
+        $this->view->setDefaultView('components' . DS . 'modules' . DS . 'gsppanel' . DS);
 
         // Load the helpers required for this view
         Loader::loadHelpers($this, ['Form', 'Html', 'Widget']);
@@ -171,7 +168,7 @@ class Pterodactyl extends Module {
 
     public function getPackageFields($vars = null) {
         // Fetch the package fields
-        $this->loadLib('pterodactyl_package');
+        $this->loadLib('gsppanel_package');
         $package = new PterodactylPackage();
         return $package->getFields($vars);
     }
