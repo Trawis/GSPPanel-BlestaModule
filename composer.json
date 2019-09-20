@@ -1,0 +1,11 @@
+{
+    "name": "blesta/gsppanel",
+    "description": "GSP-Panel Module",
+    "license": "proprietary",
+    "type": "blesta-module",
+    "require": {
+        "blesta/composer-installer": "~1.0",
+      "ext-curl": "*",
+      "ext-json": "*"
+    }
+}

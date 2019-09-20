@@ -1,0 +1,90 @@
+        <?php
+        $this->Widget->clear();
+        $this->Widget->create($this->_('Pterodactyl.edit_row.box_title', true));
+        ?>
+        <div class="inner">
+            <?php
+            $this->Form->create();
+            ?>
+            <div class="title_row first">
+                <h3><?php $this->_('Pterodactyl.edit_row.basic_title');?></h3>
+            </div>
+            <div class="pad">
+                <ul>
+                    <li>
+                        <?php
+                        $this->Form->label($this->_('Pterodactyl.row_meta.node_name', true), 'node_name');
+                        $this->Form->fieldText('node_name', $this->Html->ifSet($vars->node_name), ['id' => 'node_name']);
+                        ?>
+                    </li>
+                    <li>
+                        <?php
+                        $this->Form->label($this->_('Pterodactyl.row_meta.panel_url', true), 'panel_url');
+                        $this->Form->fieldText('panel_url', $this->Html->ifSet($vars->panel_url), ['id' => 'panel_url']);
+                        ?>
+                        <span class="tooltip"><?php $this->_('AppController.tooltip.text');?><div><?php $this->_('Pterodactyl.!tooltip.panel_url');?></div></span>
+                    </li>
+                    <li>
+                        <?php
+                        $this->Form->label($this->_('Pterodactyl.row_meta.key', true), 'key');
+                        $this->Form->fieldText('key', $this->Html->ifSet($vars->key), ['id' => 'key']);
+                        ?>
+                        <span class="tooltip"><?php $this->_('AppController.tooltip.text');?><div><?php $this->_('Pterodactyl.!tooltip.key');?></div></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="button_row">
+                <?php
+                $this->Form->fieldSubmit('save', $this->_('Pterodactyl.edit_row.add_btn', true), ['class' => 'btn btn-primary pull-right']);
+                ?>
+            </div>
+            <?php
+            $this->Form->end();
+            ?>
+        </div>
+        <?php
+        $this->Widget->end();
+        ?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    updateIPRows();
+    // Add a row
+    $('.ip_row_add').click(function() {
+        var fields = $('tr.ip_row:first').clone(true);
+        $(fields).find('input').val('');
+        $('td:first span', fields).text($('tr.ip_row').length+1);
+        $('tr.ip_row:last').after(fields);
+        updateIPRows();
+        return false;
+    });
+    // Remove a row
+    $('.ip_row_remove').click(function() {
+        if ($('tr.ip_row').length > 1) {
+            $(this).closest('tr').remove();
+            // Reorder the counts for these rows
+            $i=1;
+            $('tr.ip_row').each(function() {
+                $('td:first span', this).text($i++);
+            });
+        }
+        updateIPRows();
+        return false;
+    });
+});
+
+// Zebra-stripe rows and set default port num
+function updateIPRows() {
+    var i = 0;
+    var default_port = "<?php $this->Html->_($default_port);?>";
+    $('tr.ip_row').each(function() {
+        if(!$('td input.port', this).val())
+            $('td input.port', this).val(default_port);
+        if (i++%2 == 1)
+            $(this).addClass('odd_row');
+        else
+            $(this).removeClass('odd_row');
+    });
+}
+</script>

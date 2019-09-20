@@ -1,0 +1,22 @@
+<?php
+$panel_url = rtrim($this->Html->ifSet($module_row->meta->panel_url), '/');
+?>
+<div class="table-responsive">
+    <table class="table table-curved table-striped">
+        <tbody>
+        <tr>
+            <td>
+                <?php $this->_('Pterodactyl.service_info.option_manage_server'); ?>:
+                <a href="<?php echo $panel_url . '/server/' . $service_fields->server_identifier; ?>" target="_blank"><?php $this->_('Pterodactyl.service_info.option_manage_server_href'); ?></a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <?php $this->_('Pterodactyl.service_info.option_s_id'); ?>: <?php echo $service_fields->server_identifier ?>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>

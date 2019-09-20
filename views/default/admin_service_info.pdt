@@ -1,0 +1,30 @@
+<?php
+$panel_url = rtrim($this->Html->ifSet($module_row->meta->panel_url), '/');
+?>
+<table class="table">
+    <tr class="heading_row">
+        <td class="fixed_small center border_none"><i class="fa fa-level-up fa-rotate-90"></i></td>
+        <td class="border_left last"><?php $this->_('Pterodactyl.service_info.options'); ?></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <?php $this->_('Pterodactyl.service_info.option_manage_server'); ?>: <a href="<?php echo $panel_url . '/server/' . $service_fields->server_identifier; ?>" target="_blank"><?php $this->_('Pterodactyl.service_info.option_manage_server_href'); ?></a>
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td>
+            <?php $this->_('Pterodactyl.service_info.option_s_id'); ?>: <?php echo $service_fields->server_identifier ?>
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td>
+            <?php $this->_('Pterodactyl.service_info.option_s_panel_user'); ?>: #<?php echo $service_fields->server_user_id ?> <a href="<?php echo $panel_url . '/admin/users/view/' . $service_fields->server_user_id; ?>" target="_blank">View user</a>
+        </td>
+    </tr>
+
+</table>
