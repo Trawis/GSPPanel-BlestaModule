@@ -1,32 +1,5 @@
 <?php
 
-/**
- * Pterodactyl API
- *
- * MIT License
- *
- * Copyright (c) 2018 Stepan Fedotov <stepan@crident.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- **/
-
-
 function log_msg() {
 
 }
@@ -68,90 +41,6 @@ function pterodactyl_API(array $params, array $data = [], $dontLog = false) {
 }
 function pterodactyl_ConfigOptions() {
     return [
-        "cpu" => [
-            "FriendlyName" => "CPU Limit (%)",
-            "Description" => "Amount of CPU to assign to the created server.",
-            "Type" => "text",
-            "Size" => 10,
-        ],
-        "disk" => [
-            "FriendlyName" => "Disk Space (MB)",
-            "Description" => "Amount of Disk Space to assign to the created server.",
-            "Type" => "text",
-            "Size" => 10,
-        ],
-        "memory" => [
-            "FriendlyName" => "Memory (MB)",
-            "Description" => "Amount of Memory to assign to the created server.",
-            "Type" => "text",
-            "Size" => 10,
-        ],
-        "swap" => [
-            "FriendlyName" => "Swap (MB)",
-            "Description" => "Amount of Swap to assign to the created server.",
-            "Type" => "text",
-            "Size" => 10,
-        ],
-        "location_id" => [
-            "FriendlyName" => "Location ID",
-            "Description" => "ID of the Location to automatically deploy to.",
-            "Type" => "text",
-            "Size" => 10,
-        ],
-        "dedicated_ip" => [
-            "FriendlyName" => "Dedicated IP",
-            "Description" => "Assign dedicated ip to the server (optional)",
-            "Type" => "yesno",
-        ],
-        "nest_id" => [
-            "FriendlyName" => "Nest ID",
-            "Description" => "ID of the Nest for the server to use.",
-            "Type" => "text",
-            "Size" => 10,
-        ],
-        "egg_id" => [
-            "FriendlyName" => "Egg ID",
-            "Description" => "ID of the Egg for the server to use.",
-            "Type" => "text",
-            "Size" => 10,
-        ],
-        "io" => [
-            "FriendlyName" => "Block IO Weight",
-            "Description" => "Block IO Adjustment number (10-1000)",
-            "Type" => "text",
-            "Size" => 10,
-            "Default" => "500",
-        ],
-        "pack_id" => [
-            "FriendlyName" => "Pack ID",
-            "Description" => "ID of the Pack to install the server with (optional)",
-            "Type" => "text",
-            "Size" => 10,
-        ],
-        "port_range" => [
-            "FriendlyName" => "Port Range",
-            "Description" => "Port ranges seperated by comma to assign to the server (Example: 25565-25570,25580-25590) (optional)",
-            "Type" => "text",
-            "Size" => 25,
-        ],
-        "startup" => [
-            "FriendlyName" => "Startup",
-            "Description" => "Custom startup command to assign to the created server (optional)",
-            "Type" => "text",
-            "Size" => 25,
-        ],
-        "image" => [
-            "FriendlyName" => "Image",
-            "Description" => "Custom Docker image to assign to the created server (optional)",
-            "Type" => "text",
-            "Size" => 25,
-        ],
-        "databases" => [
-            "FriendlyName" => "Databases",
-            "Description" => "Client will be able to create this amount of databases for their server (optional)",
-            "Type" => "text",
-            "Size" => 10,
-        ],
         "server_name" => [
             "FriendlyName" => "Server Name",
             "Description" => "The name of the server as shown on the panel (optional)",
@@ -173,7 +62,7 @@ function pterodactyl_TestConnection(array $params) {
 
     $err = "";
     try {
-        $response = pterodactyl_API($params, 'nodes');
+        $response = pterodactyl_API($params);
 
         if ($response['status_code'] !== 200) {
             $status_code = $response['status_code'];
@@ -239,8 +128,9 @@ function pterodactyl_GetOption(array $params, $id, $default = NULL) {
 
 function pterodactyl_CreateAccount(array $params) {
     try {
-        $serverId = pterodactyl_GetServerID($params);
-        if (isset($serverId)) throw new Exception('Failed to create server because it is already created.');
+        // TODO: Create logic if account exists
+        // $serverId = pterodactyl_GetServerID($params);
+        // if (isset($serverId)) throw new Exception('Failed to create server because it is already created.');
 
         $userResult = pterodactyl_API($params, 'users/external/' . $params['clientsdetails']->id_code);
 
